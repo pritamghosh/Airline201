@@ -5,6 +5,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
 
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatMenuModule } from "@angular/material/menu";
@@ -24,6 +25,7 @@ import { MatSortModule } from "@angular/material/sort";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatDividerModule } from "@angular/material/divider";
+import { MatRadioModule } from "@angular/material/radio";
 
 import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 
@@ -55,6 +57,7 @@ import { ProfileService } from "./flights/profile.service";
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     MatToolbarModule,
     MatMenuModule,
     MatButtonModule,
@@ -72,6 +75,7 @@ import { ProfileService } from "./flights/profile.service";
     MatTabsModule,
     MatGridListModule,
     MatDividerModule,
+    MatRadioModule,
     NgxMaterialTimepickerModule
   ],
   providers: [ProfileService],
@@ -93,7 +97,8 @@ import { ProfileService } from "./flights/profile.service";
     MatSortModule,
     MatTabsModule,
     MatGridListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatRadioModule
   ],
   bootstrap: [AppComponent]
 })

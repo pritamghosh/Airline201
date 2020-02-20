@@ -1,4 +1,4 @@
-<mat-tab-group>
+<mat-tab-group [(selectedIndex)]="selectedTab">
   <mat-tab label="Flight Profile">
     <div>
       <mat-accordion>
@@ -10,13 +10,30 @@
           </mat-expansion-panel-header>
           <form [formGroup]="searchFlightProfileForm" (ngSubmit)="onSubmit()">
             <div class="row">
-              <div class="col-md-2 col-sm-12">
+              <div class="col-lg-3 col-md-6 col-sm-6">
                 <mat-form-field>
-                  <mat-label>Flight</mat-label>
-                  <input matInput formControlName="flightNo" />
+                  <mat-label>Airline Code</mat-label>
+                  <input
+                    matInput
+                    formControlName="airlineCode"
+                    #ac
+                    (input)="ac.value = $event.target.value.toUpperCase()"
+                  />
                 </mat-form-field>
               </div>
-              <div class="col-md-3  col-sm-6">
+              <div class="col-lg-3 col-md-6 col-sm-6 ">
+                <mat-form-field>
+                  <mat-label>Flight No</mat-label>
+                  <input
+                    matInput
+                    formControlName="flightNo"
+                    #fn
+                    (input)="fn.value = $event.target.value.toUpperCase()"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col-lg-6"></div>
+              <div class="col-lg-3  col-md-6 col-sm-6">
                 <mat-form-field>
                   <mat-label>Form</mat-label>
                   <input
@@ -33,7 +50,7 @@
                   <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
               </div>
-              <div class="col-md-3  col-sm-6">
+              <div class="col-lg-3  col-md-6 col-sm-6">
                 <mat-form-field>
                   <mat-label>To</mat-label>
                   <input
@@ -50,7 +67,7 @@
                   <mat-datepicker #picker2></mat-datepicker>
                 </mat-form-field>
               </div>
-              <div class="col-md-2  col-sm-6">
+              <div class="col-lg-3  col-md-6 col-sm-6">
                 <mat-form-field>
                   <input
                     type="text"
@@ -58,9 +75,11 @@
                     aria-label="Number"
                     matInput
                     formControlName="depPort"
-                    [matAutocomplete]="auto"
+                    [matAutocomplete]="autoDep"
+                    #bp
+                    (input)="bp.value = $event.target.value.toUpperCase()"
                   />
-                  <mat-autocomplete #auto="matAutocomplete">
+                  <mat-autocomplete #autoDep="matAutocomplete">
                     <mat-option
                       *ngFor="let option of filteredDepPorts | async"
                       [value]="option"
@@ -70,7 +89,7 @@
                   </mat-autocomplete>
                 </mat-form-field>
               </div>
-              <div class="col-md-2  col-sm-6">
+              <div class="col-lg-3  col-md-6 col-sm-6">
                 <mat-form-field>
                   <input
                     type="text"
@@ -78,9 +97,11 @@
                     aria-label="Number"
                     matInput
                     formControlName="arrPort"
-                    [matAutocomplete]="auto"
+                    [matAutocomplete]="autoArr"
+                    #op
+                    (input)="op.value = $event.target.value.toUpperCase()"
                   />
-                  <mat-autocomplete #auto="matAutocomplete">
+                  <mat-autocomplete #autoArr="matAutocomplete">
                     <mat-option
                       *ngFor="let option of filteredArrPorts | async"
                       [value]="option"
@@ -90,7 +111,7 @@
                   </mat-autocomplete>
                 </mat-form-field>
               </div>
-              <div class="col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12">
                 <button
                   mat-raised-button
                   type="submit"
@@ -120,71 +141,110 @@
               Results
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <table
-            mat-table
+          <mat-table
+            #table
             [dataSource]="reuslts"
             matSort
             class="mat-elevation-z8"
           >
+            <ng-container matColumnDef="radio">
+              <mat-header-cell *matHeaderCellDef></mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <mat-radio-button
+                  (change)="selectedFlight = row.flightProfileId"
+                  [value]="row.flightProfileId"
+                ></mat-radio-button>
+              </mat-cell>
+            </ng-container>
             <ng-container matColumnDef="index">
-              <th mat-header-cell *matHeaderCellDef></th>
-              <td mat-cell *matCellDef="let index = index">{{ index + 1 }}</td>
+              <mat-header-cell *matHeaderCellDef></mat-header-cell>
+              <mat-cell *matCellDef="let index = index">{{
+                index + 1
+              }}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="flight">
-              <th mat-header-cell *matHeaderCellDef>Flight</th>
-              <td mat-cell *matCellDef="let element">{{ element.flight }}</td>
+              <mat-header-cell *matHeaderCellDef>Flight</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.airlineCode + element.flightNo }}
+              </mat-cell>
             </ng-container>
             <ng-container matColumnDef="boadrPoint">
-              <th mat-header-cell *matHeaderCellDef>Boadr Point</th>
-              <td mat-cell *matCellDef="let element">
+              <mat-header-cell *matHeaderCellDef>Boadr Point</mat-header-cell>
+              <mat-cell *matCellDef="let element">
                 {{ element.boadrPoint }}
-              </td>
+              </mat-cell>
             </ng-container>
             <ng-container matColumnDef="offPoint">
-              <th mat-header-cell *matHeaderCellDef>Off Point</th>
-              <td mat-cell *matCellDef="let element">{{ element.offPoint }}</td>
+              <mat-header-cell *matHeaderCellDef>Off Point</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{
+                element.offPoint
+              }}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="depDate">
-              <th mat-header-cell *matHeaderCellDef>Dep. Date</th>
-              <td mat-cell *matCellDef="let element">
-                {{ element.depDate | date: "medium" }}
-              </td>
+              <mat-header-cell *matHeaderCellDef>Dep. Date</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.depDate | date: "fullDate" }}
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="depTime">
+              <mat-header-cell *matHeaderCellDef>Dep. Time</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.depTime }}
+              </mat-cell>
             </ng-container>
             <ng-container matColumnDef="arrDate">
-              <th mat-header-cell *matHeaderCellDef>Arr. Date</th>
-              <td mat-cell *matCellDef="let element">
-                {{ element.arrDate | date: "medium" }}
-              </td>
+              <mat-header-cell *matHeaderCellDef>Arr. Date</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.arrDate | date: "fullDate" }}
+              </mat-cell>
             </ng-container>
-            <tr
-              mat-header-row
-              *matHeaderRowDef="displayedColumns; sticky: true"
-            ></tr>
-            <tr
-              mat-row
-              *matRowDef="let row; columns: displayedColumns"
-              (click)="onSelect(row.flightProfileId)"
-              style="cursor: pointer;"
-            ></tr>
-          </table>
+            <ng-container matColumnDef="arrTime">
+              <mat-header-cell *matHeaderCellDef>Arr. Time</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.arrTime }}
+              </mat-cell>
+            </ng-container>
+            <mat-header-row
+              *matHeaderRowDef="displayedColumns"
+            ></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+          </mat-table>
+
+          <div style="margin-top: 20px;">
+            <div>
+              <button
+                mat-raised-button
+                type="submit"
+                color="primary"
+                (click)="openFlight()"
+              >
+                Open
+              </button>
+              <button
+                mat-raised-button
+                color="accent"
+                (click)="assignFlight()"
+                style="margin-left: 20px;"
+              >
+                Assign
+              </button>
+            </div>
+          </div>
         </mat-expansion-panel>
       </mat-accordion>
     </div>
   </mat-tab>
   <mat-tab label="New Flight Profile">
-    <app-profile-details isCreate="true"></app-profile-details>
+    <app-profile-details></app-profile-details>
   </mat-tab>
-  <mat-tab
-    *ngFor="let tab of flightProfileIdList; let index = index"
-    [label]="tab"
-  >
+  <mat-tab *ngFor="let fp of flightProfileList; let index = index">
     <ng-template mat-tab-label>
-      <span>{{ tab }}</span>
+      <span>{{ fp.airlineCode + fp.flightNo }}</span>
 
       <button mat-icon-button style="float: right" (click)="onClose(index)">
         <mat-icon style=" font-size: 18px;">cancel_circle</mat-icon>
       </button>
     </ng-template>
-    <app-profile-details></app-profile-details>
+    <app-profile-details [flightProfile]="fp"></app-profile-details>
   </mat-tab>
 </mat-tab-group>

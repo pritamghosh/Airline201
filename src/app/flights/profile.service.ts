@@ -1,15 +1,22 @@
 import { Injectable } from "@angular/core";
 import { Subject, Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { FlightProfile } from "../models/flight.profile.model";
 @Injectable({
   providedIn: "root"
 })
 export class ProfileService {
   flightProfileSubject = new Subject<any>();
+  localUrl = "assets/fp.json";
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   showFlightProfile(profileId: number) {
-    this.flightProfileSubject.next(profileId);
+    return this.http
+      .get<FlightProfile>(this.localUrl)
+      .subscribe((resp: FlightProfile) => {
+        this.flightProfileSubject.next(resp);
+      });
   }
 
   getFlightProfile(): Observable<any> {

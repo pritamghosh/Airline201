@@ -49,18 +49,17 @@
       </div>
       <div class="col-md-3  col-sm-3">
         <mat-form-field>
-          <!-- <mat-label>Cabin Configuration</mat-label> -->
+          <mat-label>Cabin Configuration</mat-label>
           <input
             type="text"
             aria-label="Number"
             matInput
-            placeholder="Cabin Configuration1"
             formControlName="cabinConfig"
-            [matAutocomplete]="auto"
+            [matAutocomplete]="autocc"
             #cc
             (input)="cc.value = $event.target.value.toUpperCase()"
           />
-          <mat-autocomplete #auto="matAutocomplete">
+          <mat-autocomplete #autocc="matAutocomplete">
             <mat-option
               *ngFor="let option of filteredCabinConfig | async"
               [value]="option"
@@ -93,11 +92,22 @@
               <mat-form-field>
                 <mat-label>Airport</mat-label>
                 <input
+                  type="text"
+                  aria-label="Number"
                   matInput
                   formControlName="boardPoint"
+                  [matAutocomplete]="autoDep"
                   #bp
                   (input)="bp.value = $event.target.value.toUpperCase()"
                 />
+                <mat-autocomplete #autoDep="matAutocomplete">
+                  <mat-option
+                    *ngFor="let option of getBoardPointList(index)"
+                    [value]="option"
+                  >
+                    {{ option }}
+                  </mat-option>
+                </mat-autocomplete>
               </mat-form-field>
             </div>
             <div class="col-md-3">
@@ -120,15 +130,16 @@
             <div class="col-md-2">
               <mat-form-field>
                 <mat-label>Time of Deperture</mat-label>
+
                 <input
                   matInput
-                  [ngxTimepicker]="fullTime"
+                  [ngxTimepicker]="depTime"
                   aria-label="24hr format"
                   [format]="24"
                   formControlName="depTime"
                 />
-                <ngx-material-timepicker #fullTime></ngx-material-timepicker>
               </mat-form-field>
+              <ngx-material-timepicker #depTime></ngx-material-timepicker>
             </div>
             <div class="col-md-2">
               <mat-form-field>
@@ -161,11 +172,22 @@
               <mat-form-field>
                 <mat-label>Airport</mat-label>
                 <input
+                  type="text"
+                  aria-label="Number"
                   matInput
                   formControlName="offPoint"
+                  [matAutocomplete]="autoArr"
                   #op
                   (input)="op.value = $event.target.value.toUpperCase()"
                 />
+                <mat-autocomplete #autoArr="matAutocomplete">
+                  <mat-option
+                    *ngFor="let option of filteredArrPorts | async"
+                    [value]="option"
+                  >
+                    {{ option }}
+                  </mat-option>
+                </mat-autocomplete>
               </mat-form-field>
             </div>
             <div class="col-md-3">
@@ -192,10 +214,11 @@
                   [ngxTimepicker]="arrtime"
                   aria-label="24hr format"
                   [format]="24"
+                  placeholder="Time of Arrival"
                   formControlName="arrTime"
                 />
-                <ngx-material-timepicker #arrtime></ngx-material-timepicker>
               </mat-form-field>
+              <ngx-material-timepicker #arrtime></ngx-material-timepicker>
             </div>
             <div class="col-md-2">
               <mat-form-field>
