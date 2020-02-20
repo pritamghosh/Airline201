@@ -141,74 +141,71 @@
               Results
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <mat-table
+          <table
+            mat-table
             #table
             [dataSource]="reuslts"
             matSort
             class="mat-elevation-z8"
           >
             <ng-container matColumnDef="radio">
-              <mat-header-cell *matHeaderCellDef></mat-header-cell>
-              <mat-cell *matCellDef="let row">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let row" width="50px">
                 <mat-radio-button
+                  style="margin-top: 4px;margin-right: 10px;"
                   (change)="selectedFlight = row.flightProfileId"
-                  [value]="row.flightProfileId"
                 ></mat-radio-button>
-              </mat-cell>
+              </td>
             </ng-container>
             <ng-container matColumnDef="index">
-              <mat-header-cell *matHeaderCellDef></mat-header-cell>
-              <mat-cell *matCellDef="let index = index">{{
-                index + 1
-              }}</mat-cell>
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let index = index" width="50px">
+                {{ index + 1 }}
+              </td>
             </ng-container>
             <ng-container matColumnDef="flight">
-              <mat-header-cell *matHeaderCellDef>Flight</mat-header-cell>
-              <mat-cell *matCellDef="let element">
+              <th mat-header-cell *matHeaderCellDef>Flight</th>
+              <td mat-cell *matCellDef="let element">
                 {{ element.airlineCode + element.flightNo }}
-              </mat-cell>
+              </td>
             </ng-container>
             <ng-container matColumnDef="boadrPoint">
-              <mat-header-cell *matHeaderCellDef>Boadr Point</mat-header-cell>
-              <mat-cell *matCellDef="let element">
+              <th mat-header-cell *matHeaderCellDef>Board Point</th>
+              <td mat-cell *matCellDef="let element">
                 {{ element.boadrPoint }}
-              </mat-cell>
+              </td>
             </ng-container>
             <ng-container matColumnDef="offPoint">
-              <mat-header-cell *matHeaderCellDef>Off Point</mat-header-cell>
-              <mat-cell *matCellDef="let element">{{
-                element.offPoint
-              }}</mat-cell>
+              <th mat-header-cell *matHeaderCellDef>Off Point</th>
+              <td mat-cell *matCellDef="let element">{{ element.offPoint }}</td>
             </ng-container>
             <ng-container matColumnDef="depDate">
-              <mat-header-cell *matHeaderCellDef>Dep. Date</mat-header-cell>
-              <mat-cell *matCellDef="let element">
+              <th mat-header-cell *matHeaderCellDef>Dep. Date</th>
+              <td mat-cell *matCellDef="let element">
                 {{ element.depDate | date: "fullDate" }}
-              </mat-cell>
+              </td>
             </ng-container>
             <ng-container matColumnDef="depTime">
-              <mat-header-cell *matHeaderCellDef>Dep. Time</mat-header-cell>
-              <mat-cell *matCellDef="let element">
+              <th mat-header-cell *matHeaderCellDef>Dep. Time</th>
+              <td mat-cell *matCellDef="let element">
                 {{ element.depTime }}
-              </mat-cell>
+              </td>
             </ng-container>
             <ng-container matColumnDef="arrDate">
-              <mat-header-cell *matHeaderCellDef>Arr. Date</mat-header-cell>
-              <mat-cell *matCellDef="let element">
+              <th mat-header-cell *matHeaderCellDef>Arr. Date</th>
+              <td mat-cell *matCellDef="let element">
                 {{ element.arrDate | date: "fullDate" }}
-              </mat-cell>
+              </td>
             </ng-container>
             <ng-container matColumnDef="arrTime">
-              <mat-header-cell *matHeaderCellDef>Arr. Time</mat-header-cell>
-              <mat-cell *matCellDef="let element">
+              <th mat-header-cell *matHeaderCellDef>Arr. Time</th>
+              <td mat-cell *matCellDef="let element">
                 {{ element.arrTime }}
-              </mat-cell>
+              </td>
             </ng-container>
-            <mat-header-row
-              *matHeaderRowDef="displayedColumns"
-            ></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-          </mat-table>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
 
           <div style="margin-top: 20px;">
             <div>
