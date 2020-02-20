@@ -163,7 +163,7 @@
             <tr
               mat-row
               *matRowDef="let row; columns: displayedColumns"
-              (click)="onSelect(row)"
+              (click)="onSelect(row.flightProfileId)"
               style="cursor: pointer;"
             ></tr>
           </table>
@@ -172,9 +172,19 @@
     </div>
   </mat-tab>
   <mat-tab label="New Flight Profile">
+    <app-profile-details isCreate="true"></app-profile-details>
+  </mat-tab>
+  <mat-tab
+    *ngFor="let tab of flightProfileIdList; let index = index"
+    [label]="tab"
+  >
+    <ng-template mat-tab-label>
+      <span>{{ tab }}</span>
+
+      <button mat-icon-button style="float: right" (click)="onClose(index)">
+        <mat-icon style=" font-size: 18px;">cancel_circle</mat-icon>
+      </button>
+    </ng-template>
     <app-profile-details></app-profile-details>
   </mat-tab>
-  <!-- <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab">
-    <app-profile-details></app-profile-details>
-  </mat-tab> -->
 </mat-tab-group>

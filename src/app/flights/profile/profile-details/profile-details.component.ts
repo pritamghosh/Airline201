@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import {
   FormControl,
   FormGroup,
@@ -8,6 +8,7 @@ import {
 } from "@angular/forms";
 import { Observable } from "rxjs";
 import { map, startWith } from "rxjs/operators";
+import { FlightProfile } from "src/app/models/flight.profile.model";
 @Component({
   selector: "app-profile-details",
   templateUrl: "./profile-details.component.html",
@@ -15,6 +16,8 @@ import { map, startWith } from "rxjs/operators";
 })
 export class ProfileDetailsComponent implements OnInit {
   flightProfileDetailsForm: FormGroup;
+  @Input() isCreate: boolean = false;
+  @Input() flightProfile: FlightProfile;
   minDate = new Date();
   step = 0;
   depPorts: string[] = ["DEL", "BLR", "BOM"];
@@ -81,6 +84,14 @@ export class ProfileDetailsComponent implements OnInit {
     } else {
       return "Next";
     }
+  }
+
+  get submitButtonName() {
+    return this.isCreate ? "Create" : "Update";
+  }
+
+  get resetButtonName() {
+    return this.isCreate ? "Reset" : "Reload";
   }
 
   deleteLeg(index: number) {

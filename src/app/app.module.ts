@@ -35,6 +35,7 @@ import { MsmComponent } from "./flights/msm/msm.component";
 import { PassengersComponent } from "./passengers/passengers.component";
 import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { ProfileDetailsComponent } from "./flights/profile/profile-details/profile-details.component";
+import { ProfileService } from "./flights/profile.service";
 
 @NgModule({
   declarations: [
@@ -73,7 +74,7 @@ import { ProfileDetailsComponent } from "./flights/profile/profile-details/profi
     MatDividerModule,
     NgxMaterialTimepickerModule
   ],
-  providers: [],
+  providers: [ProfileService],
   exports: [
     MatToolbarModule,
     MatMenuModule,

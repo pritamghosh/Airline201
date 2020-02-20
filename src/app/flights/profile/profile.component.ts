@@ -1,17 +1,18 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { map, startWith } from "rxjs/operators";
+import { ProfileService } from "../profile.service";
 
 @Component({
   selector: "app-profile",
   templateUrl: "./profile.component.html",
   styleUrls: ["./profile.component.sass"]
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   minDate = new Date();
   maxDate = new Date();
   minDateOffset = 24 * 60 * 60 * 1000 * 30 * 6; //6 Monthes
@@ -19,6 +20,8 @@ export class ProfileComponent implements OnInit {
   searchFlightProfileForm: FormGroup;
   depPorts: string[] = ["DEL", "BLR", "BOM"];
   arrPorts: string[] = ["DEL", "BLR", "BOM"];
+  flightProfileIdList = new Set();
+  fpSubscription: Subscription;
   filteredDepPorts: Observable<string[]>;
   filteredArrPorts: Observable<string[]>;
   tabs = ["First", "Second", "Third"];
@@ -26,6 +29,7 @@ export class ProfileComponent implements OnInit {
   panelOpenState = false;
   reuslts = new MatTableDataSource([
     {
+      flightProfileId: 1,
       flight: "AI 123",
       boadrPoint: "DEL",
       offPoint: "BLR",
@@ -33,6 +37,7 @@ export class ProfileComponent implements OnInit {
       depDate: new Date()
     },
     {
+      flightProfileId: 12111111111,
       flight: "BA 123",
       boadrPoint: "BOM",
       offPoint: "BLR",
@@ -49,9 +54,12 @@ export class ProfileComponent implements OnInit {
     "arrDate"
   ];
 
-  constructor() {
+  constructor(private profileService: ProfileService) {
     this.minDate.setTime(this.minDate.getTime() - this.minDateOffset);
     this.maxDate.setTime(this.maxDate.getTime() + this.maxDateOffset);
+    this.fpSubscription = profileService
+      .getFlightProfile()
+      .subscribe(flight => this.flightProfileIdList.add(flight));
   }
 
   ngOnInit(): void {
@@ -94,6 +102,13 @@ export class ProfileComponent implements OnInit {
     this.searchFlightProfileForm.reset();
   }
   onSelect(flight: any) {
-    console.log(flight);
+    this.profileService.showFlightProfile(flight);
+  }
+
+  onClose(index: number) {
+    this.flightProfileIdList.delete(index);
+  }
+  ngOnDestroy() {
+    this.fpSubscription.unsubscribe();
   }
 }
