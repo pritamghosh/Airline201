@@ -1,0 +1,70 @@
+<mat-card>
+  <form [formGroup]="aircraftDetailsForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-12 col-lg-3">
+        <mat-form-field style="margin-left: 20px;">
+          <mat-label>Airline Code</mat-label>
+          <input
+            matInput
+            formControlName="airlineCode"
+            #code
+            (input)="code.value = $event.target.value.toUpperCase()"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-3 col-lg-3">
+        <mat-form-field style="margin-left: 20px;">
+          <mat-label>Aircraft Type Code</mat-label>
+          <input
+            matInput
+            formControlName="aircraftTypeCode"
+            #at
+            (input)="at.value = $event.target.value.toUpperCase()"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-6 col-lg-3 col-sm-6">
+        <mat-form-field style="margin-left: 20px;">
+          <mat-label>Aircraft Version</mat-label>
+          <input
+            matInput
+            formControlName="airlcraftVersion"
+            #av
+            (input)="av.value = $event.target.value.toUpperCase()"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-3  col-sm-3">
+        <!-- <mat-form-field>
+          <mat-label>Cabin Configuration</mat-label>
+          <input
+            type="text"
+            aria-label="Number"
+            matInput
+            formControlName="cabinConfig"
+            #cc
+            (input)="cc.value = $event.target.value.toUpperCase()"
+          />
+        </mat-form-field> -->
+      </div>
+    </div>
+    <mat-card-actions>
+      <button
+        mat-raised-button
+        type="submit"
+        color="primary"
+        style="float: left; margin-left: 10px;"
+        [disabled]="!aircraftDetailsForm.valid"
+      >
+        {{ submitButtonName }}
+      </button>
+      <button
+        mat-raised-button
+        style="background-color: #4dbd81;  color : white; float: right;"
+        (click)="onReset()"
+      >
+        {{ resetButtonName }}
+      </button>
+    </mat-card-actions>
+  </form>
+</mat-card>

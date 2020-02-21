@@ -37,7 +37,9 @@ import { MsmComponent } from "./flights/msm/msm.component";
 import { PassengersComponent } from "./passengers/passengers.component";
 import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { ProfileDetailsComponent } from "./flights/profile/profile-details/profile-details.component";
-import { ProfileService } from "./flights/profile.service";
+import { ProfileService } from "./flights/services/profile.service";
+import { AircraftService } from "./flights/services/aircraft.service";
+import { AircraftDetailsComponent } from "./flights/aircraft/aircraft-details/aircraft-details.component";
 
 @NgModule({
   declarations: [
@@ -49,7 +51,8 @@ import { ProfileService } from "./flights/profile.service";
     MsmComponent,
     PassengersComponent,
     LandingPageComponent,
-    ProfileDetailsComponent
+    ProfileDetailsComponent,
+    AircraftDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +81,7 @@ import { ProfileService } from "./flights/profile.service";
     MatRadioModule,
     NgxMaterialTimepickerModule
   ],
-  providers: [ProfileService],
+  providers: [ProfileService, AircraftService],
   exports: [
     MatToolbarModule,
     MatMenuModule,

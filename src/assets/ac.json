@@ -1,0 +1,23 @@
+[
+	{
+		"aircraftId": 1,
+		"airlineCode": "AI",
+		"aircraftTypeCode": "100",
+		"aircraftVersion": "PKG",
+		"cabinConfigs" : ["F40/Y160","F50/C50/Y100","Y200"]
+	},
+	{
+		"aircraftId": 2,
+		"airlineCode": "AI",
+		"aircraftTypeCode": "300",
+		"aircraftVersion": "KUL",
+		"cabinConfigs" : ["F140/Y260","F150/C150"]
+	},
+	{
+		"aircraftId": 3,
+		"airlineCode": "BA",
+		"aircraftTypeCode": "210",
+		"aircraftVersion": "PKG",
+		"cabinConfigs" : ["F140/Y160","F50/C150/Y300","Y400"]
+	}
+]

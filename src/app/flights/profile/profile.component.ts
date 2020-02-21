@@ -5,8 +5,8 @@ import { MatTableDataSource } from "@angular/material/table";
 
 import { Observable, Subscription } from "rxjs";
 import { map, startWith } from "rxjs/operators";
-import { ProfileService } from "../profile.service";
 import { FlightProfile } from "src/app/models/flight.profile.model";
+import { ProfileService } from "../services/profile.service";
 
 @Component({
   selector: "app-profile",
@@ -128,8 +128,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   openFlight() {
-    console.log(this.selectedFlight);
-
     this.profileService.showFlightProfile(this.selectedFlight);
   }
 

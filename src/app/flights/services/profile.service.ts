@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Subject, Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
-import { FlightProfile } from "../models/flight.profile.model";
+import { FlightProfile } from "src/app/models/flight.profile.model";
 @Injectable({
   providedIn: "root"
 })
